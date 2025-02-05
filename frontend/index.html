@@ -1,15 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Prop Hunt P2P</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      canvas {
+        background: #eee;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Application PeerJS P2P</h1>
+    <h1>Prop Hunt P2P</h1>
     <p>Mon ID Peer : <span id="my-id">Génération...</span></p>
-    <div id="messages"></div>
+    <div>
+      <input type="text" id="remote-id" placeholder="ID du peer distant" />
+      <button id="connect-btn">Se connecter</button>
+    </div>
+    <p>Votre rôle : <span id="role-display">Inconnu</span></p>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
