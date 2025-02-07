@@ -1,5 +1,5 @@
 import { PeerEvents } from "../config";
-import { conn } from "../connection";
+import { getConn } from "../connection";
 
 type ListenEventCallback<EventName extends keyof PeerEvents> = (
   payload: PeerEvents[EventName]
@@ -23,9 +23,14 @@ export const listenEvent: ListenEvent = (eventName, callback) => {
 
 export const sendEvent = <T extends keyof PeerEvents>(
   eventName: T,
-  payload: keyof PeerEvents[T]
+  payload: PeerEvents[T]
 ) => {
-  const message = JSON.stringify({ eventName, payload });
+  const conn = getConn();
 
-  conn.send(message);
+  if (!conn || !conn.open) {
+    console.warn("La connexion n'est pas encore ouverte. L'événement", eventName, "n'a pas été envoyé.");
+    return;
+  }
+  // const message = JSON.stringify({ eventName, payload });
+  conn.send({ eventName, payload });
 };

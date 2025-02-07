@@ -2,24 +2,27 @@ import { Peer } from "peerjs";
 import { _listeners } from "./lib/events";
 import { peerEventsSchema } from "./config";
 
-const peer = new Peer();
+export const peer = new Peer();
 
-export const conn = peer.connect("another-peer-id");
+let _conn: Peer.DataConnection | null = null;
 
-conn.on("open", function () {
-  conn.on("data", function (data) {
-    const parsedEvent = peerEventsSchema.parse(data);
+export const setConn = (connection: Peer.DataConnection) => {
+  _conn = connection;
+};
 
-    Object.entries(_listeners).forEach(([_clientId, listeners]) => {
-      const eventListeners = listeners[parsedEvent.eventName];
+export const getConn = () => _conn;
 
-      if (!eventListeners) {
-        return;
-      }
-
-      eventListeners.forEach((listener) => {
-        listener(parsedEvent.payload);
+export function createConnection(remoteId: string): Peer.DataConnection {
+  const connection = peer.connect(remoteId);
+  connection.on("open", function () {
+    connection.on("data", function (data) {
+      const parsedEvent = peerEventsSchema.parse(data);
+      Object.entries(_listeners).forEach(([_clientId, listeners]) => {
+        const eventListeners = listeners[parsedEvent.eventName];
+        if (!eventListeners) return;
+        eventListeners.forEach((listener) => listener(parsedEvent.payload));
       });
     });
   });
-});
+  return connection;
+}

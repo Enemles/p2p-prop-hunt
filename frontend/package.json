@@ -9,12 +9,23 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.6.2",
     "vite": "^6.0.5"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
+    "@tailwindcss/vite": "^4.0.4",
+    "gsap": "^3.12.7",
     "peer": "^1.0.2",
     "peerjs": "^1.5.4",
+    "recharts": "^2.15.1",
+    "sonner": "^1.7.4",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2",
     "zod": "^3.24.1"
   }
 }

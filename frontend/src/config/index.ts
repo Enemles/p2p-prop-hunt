@@ -6,14 +6,13 @@ export const peerEventsSchema = z.union([
     payload: z.object({
       x: z.number(),
       y: z.number(),
+      asset: z.string(),
+      role: z.enum(["prop", "hunter"]),
     }),
   }),
   z.object({
-    eventName: z.literal("USER_CLICK"),
-    payload: z.object({
-      x: z.number(),
-      y: z.number(),
-    }),
+    eventName: z.literal("WIN"),
+    payload: z.null(),
   }),
 ]);
 
@@ -24,6 +23,6 @@ export type PeerEvents = {
 export const config = {
   events: {
     UPDATE_POS: "UPDATE_POS",
-    USER_CLICK: "USER_CLICK",
+    WIN: "WIN",
   } satisfies Record<keyof PeerEvents, string>,
 };
