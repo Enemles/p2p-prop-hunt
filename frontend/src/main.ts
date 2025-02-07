@@ -1,4 +1,4 @@
-import { sendEvent, listenEvent } from './lib/events';
+import { sendEvent } from './lib/events';
 import { peerEventsSchema } from './config';
 import { peer, createConnection, setConn } from './connection';
 
